@@ -1,62 +1,55 @@
 class RomanNumeral {
-    aMappingNumeralRoman () {
-        const aMappingNumeralRoman=[
-            {numeral: 10, roman: "X"},
-            {numeral: 5, roman: "V"},
-            {numeral: 4, roman: "IV"},
-            {numeral: 1, roman: "I"}
-            
-        ];
-        return aMappingNumeralRoman;
-   }
 
-   convertRomanToNumeral (numberToConvert) {
-        const mapping = this.aMappingNumeralRoman();
-        let convertedToRomanNumber = ""
-        let convertedNumberAndDiff = {};
-        let diff = numberToConvert;
-        //while(diff !== 0){
-            convertedNumberAndDiff = this.lookInMappingForFirstNumberBelow(mapping, numberToConvert, convertedToRomanNumber);
-            convertedToRomanNumber += convertedNumberAndDiff.convertedToRomanNumber;
-            diff = convertedNumberAndDiff.diff;
-            if(diff !== 0){
-                
-                numberToConvert = diff;
-                
-                convertedNumberAndDiff = this.lookInMappingForFirstNumberBelow(mapping, numberToConvert, convertedToRomanNumber);
-                
-                convertedToRomanNumber = convertedNumberAndDiff.convertedToRomanNumber;
-                diff = convertedNumberAndDiff.diff;
-                
-            }
-        //}
-        return convertedToRomanNumber;
-   }
-
-    lookInMappingForFirstNumberBelow(mapping, numberToConvert, convertedToRomanNumber) {
-        
-        let convertedNumberAndDiff = {
-            convertedToRomanNumber: "",
-            diff: ""
+    mappingRomanToArabic(){
+        const romanToArabicMap = {
+            'C': 100,
+            'XC': 90,
+            'L': 50,
+            'XL': 40,
+            'X': 10,
+            'IX': 9,
+            'V': 5,
+            'IV': 4,
+            'I': 1
         };
-        let diff;
-        mapping.some(function (currentNumberMapping, index, array) {
-            if (currentNumberMapping.numeral <= numberToConvert) {
-                convertedToRomanNumber = convertedToRomanNumber + currentNumberMapping.roman;
-                diff = numberToConvert - currentNumberMapping.numeral;
-                
-                return true;
-            }
-            return false;
-        });
-        
-        convertedNumberAndDiff.convertedToRomanNumber = convertedToRomanNumber;
-        convertedNumberAndDiff.diff = diff;
 
-        return convertedNumberAndDiff;
+        return romanToArabicMap;
     }
+
+    convertValue (value) {
+        if(this.testIfValueIsRoman(value)){
+            this.convertRomanToArabic(value);
+        }
+        else {
+            this.convertArabicToRoman(value);
+        }
+   }
+
+   testIfValueIsRoman(value){
+        const charToLookFor =  /[MDCLXVI]/;
+        return charToLookFor.test(value)
+
+   }
+
+   convertRomanToArabic(valueToConvertToArabic){
+        const romanToArabicMap = this.mappingRomanToArabic();
+        let valueConvertedToArabic = 0;
+        let i = 0;
+        while (i < valueToConvertToArabic.length) {
+            if (i + 1 < valueToConvertToArabic.length && romanToArabicMap[valueToConvertToArabic.substring(i, i + 2)]) {
+                valueConvertedToArabic += romanToArabicMap[valueToConvertToArabic.substring(i, i + 2)];
+                i += 2;
+            } else {
+                valueConvertedToArabic += romanToArabicMap[valueToConvertToArabic.charAt(i)];
+                i++;
+            }
+        }
+        return valueConvertedToArabic;
+   }
+
+   convertArabicToRoman(valueToConvertToRoman){
+
+   }
 }
 
 module.exports = { RomanNumeral };
-/* const converter = new RomanNumeral();
-console.log(converter.convertRomanToNumeral(6)); */
