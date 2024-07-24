@@ -1,7 +1,11 @@
 class RomanNumeral {
 
     mappingRomanToArabic(){
-        const romanToArabicMap = {
+        const mappingRomanArabic= {
+            'M': 1000,
+            'CM': 900,
+            'D': 500,
+            'CD': 400,
             'C': 100,
             'XC': 90,
             'L': 50,
@@ -12,44 +16,49 @@ class RomanNumeral {
             'IV': 4,
             'I': 1
         };
-
-        return romanToArabicMap;
+        return mappingRomanArabic;
     }
 
-    convertValue (value) {
-        if(this.testIfValueIsRoman(value)){
-            this.convertRomanToArabic(value);
+    convertValue(valueToConvert){
+        let convertedValue;
+        if(this.isValueRoman(valueToConvert)){
+            convertedValue = this.convertRomanToArabic(valueToConvert);
+        } else {
+            convertedValue = this.convertArabicToRoman(valueToConvert);
         }
-        else {
-            this.convertArabicToRoman(value);
-        }
-   }
 
-   testIfValueIsRoman(value){
-        const charToLookFor =  /[MDCLXVI]/;
-        return charToLookFor.test(value)
+        return convertedValue;
+    }
 
-   }
+    isValueRoman(valueToTest){
+        const patternToKnowIfValueisRoman  = /[IVXLCDM]/;
+        return patternToKnowIfValueisRoman.test(valueToTest);
+    }
 
-   convertRomanToArabic(valueToConvertToArabic){
-        const romanToArabicMap = this.mappingRomanToArabic();
-        let valueConvertedToArabic = 0;
-        let i = 0;
-        while (i < valueToConvertToArabic.length) {
-            if (i + 1 < valueToConvertToArabic.length && romanToArabicMap[valueToConvertToArabic.substring(i, i + 2)]) {
-                valueConvertedToArabic += romanToArabicMap[valueToConvertToArabic.substring(i, i + 2)];
-                i += 2;
-            } else {
-                valueConvertedToArabic += romanToArabicMap[valueToConvertToArabic.charAt(i)];
+    convertRomanToArabic(valueOfRomanToConvertToArabic){
+        const mappingRomanArabic = this.mappingRomanToArabic();
+        let convertedToArabic = 0;
+        for(let i=0; i < valueOfRomanToConvertToArabic.length; i++ ){
+            const twoChar = valueOfRomanToConvertToArabic.substring(i, i + 2);
+            const oneChar = valueOfRomanToConvertToArabic.charAt(i);
+            
+            if (i + 1 < valueOfRomanToConvertToArabic.length && mappingRomanArabic[twoChar]) {
+                convertedToArabic += mappingRomanArabic[twoChar];
                 i++;
+            } else {
+                convertedToArabic += mappingRomanArabic[oneChar];
             }
         }
-        return valueConvertedToArabic;
-   }
 
-   convertArabicToRoman(valueToConvertToRoman){
+        return convertedToArabic;
+    }
 
-   }
+    convertArabicToRoman(valueOfArabicToConvertToRoman){
+    }
+
 }
 
 module.exports = { RomanNumeral };
+
+const converter = new RomanNumeral();
+console.log(converter.convertValue("CDI"))

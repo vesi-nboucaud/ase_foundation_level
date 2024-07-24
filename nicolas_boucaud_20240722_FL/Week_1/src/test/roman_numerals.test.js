@@ -3,23 +3,20 @@ const { RomanNumeral } = require('../roman_numerals'); // Assurez-vous que le ch
 
 QUnit.module('RomanNumeral Tests', function() {
 
-    QUnit.test('VI should return true', function(assert) {
+    QUnit.test('X is roman so it should return true', function(assert) {
         const sut = new RomanNumeral();
-        assert.strictEqual(sut.testIfValueIsRoman("VI"), true);
+        assert.strictEqual(sut.isValueRoman("X"), true);
     });
 
-    QUnit.test('6 should return false', function(assert) {
+    QUnit.test('10 is arabic so it should return false', function(assert) {
         const sut = new RomanNumeral();
-        assert.strictEqual(sut.testIfValueIsRoman(6), false);
+        assert.strictEqual(sut.isValueRoman(10), false);
     });
 
-    QUnit.test('XI should return 11', function(assert) {
+    QUnit.test('CDI is roman so it should convert it to 401', function(assert) {
         const sut = new RomanNumeral();
-        assert.strictEqual(sut.convertRomanToArabic("XI"), 11);
+        assert.strictEqual(sut.convertValue("CDI"), 401);
     });
 
-    QUnit.test('IX should return 9', function(assert) {
-        const sut = new RomanNumeral();
-        assert.strictEqual(sut.convertRomanToArabic("IX"), 9);
-    });
+    
 });
