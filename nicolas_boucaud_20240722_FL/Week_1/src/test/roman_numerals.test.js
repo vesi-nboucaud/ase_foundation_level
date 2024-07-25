@@ -8,15 +8,40 @@ QUnit.module('RomanNumeral Tests', function() {
         assert.strictEqual(sut.isValueRoman("X"), true);
     });
 
+    QUnit.test('X is roman so it should return false', function(assert) {
+        const sut = new RomanNumeral();
+        assert.strictEqual(sut.isValueArabic("X"), false);
+    });
+
+    QUnit.test('10 is arabic so it should return true', function(assert) {
+        const sut = new RomanNumeral();
+        assert.strictEqual(sut.isValueArabic(10), true);
+    });
+
     QUnit.test('10 is arabic so it should return false', function(assert) {
         const sut = new RomanNumeral();
         assert.strictEqual(sut.isValueRoman(10), false);
     });
 
-    QUnit.test('CDI is roman so it should convert it to 401', function(assert) {
+    QUnit.test('undefined should return false', function(assert) {
         const sut = new RomanNumeral();
-        assert.strictEqual(sut.convertValue("CDI"), 401);
+        assert.strictEqual(sut.isValueRoman(), false);
     });
 
+    QUnit.test('undefined should return false', function(assert) {
+        const sut = new RomanNumeral();
+        assert.strictEqual(sut.isValueArabic(), false);
+    });
+
+    QUnit.test('XVIII should return 18', function(assert) {
+        const sut = new RomanNumeral();
+        assert.strictEqual(sut.convertRomanToArabic("XVIII"), 18);
+    });
+
+    QUnit.test('XVIII should return 18', function(assert) {
+        const sut = new RomanNumeral();
+        assert.strictEqual(sut.convertArabicToRoman(8), "VIII");
+    });
+    
     
 });
