@@ -1,6 +1,7 @@
+const readline = require('readline');
 const { test } = require("qunit");
-
 class RomanNumeral {
+
     mappingRomanArabic(){
         return {
             'M': 1000,
@@ -20,45 +21,33 @@ class RomanNumeral {
     }
 
     convertValue(valueToConvert){
-        if(this.isValueRoman){
-            this.convertRomanToArabic
-        } else if(this.isValueArabic){
-
+        if(this.isValueRoman(valueToConvert)){
+            return this.convertRomanToArabic(valueToConvert);
+        } else if(this.isValueArabic(valueToConvert)){
+            return this.convertArabicToRoman(parseFloat(valueToConvert));
+        } else {
+            return 'Invalid input';
         }
     }
 
-    isValueRoman(valueToTest){
+    isValueRoman(valueToCheck){
         const pattern = /[IVXLCDM]/;
-        return pattern.test(valueToTest);
+        return pattern.test(valueToCheck);
     }
 
-    isValueArabic(valueToTest){
-        if(parseFloat(valueToTest)){
+    isValueArabic(valueToCheck){
+        if(parseFloat(valueToCheck)){
             return true;
         }
         return false;
     }
 
-    convertRomanToArabic(valueRomanToConvertToArabic){
-        const mappingRomanArabic = this.mappingRomanArabic();
-        let valueConvertedToArabic = 0;
-        for(let i=0; i < valueRomanToConvertToArabic.length; i++ ){
-            const twoCharacter = valueRomanToConvertToArabic.substring(i, i + 2);
-            const oneCharacter = valueRomanToConvertToArabic.charAt(i);
-            if (i + 1 < valueRomanToConvertToArabic.length && mappingRomanArabic[twoCharacter]) {
-                valueConvertedToArabic += mappingRomanArabic[twoCharacter];
-                i++;
-            } else {
-                valueConvertedToArabic += mappingRomanArabic[oneCharacter];
-            }
-        }
-        return valueConvertedToArabic;
-    }
-
     convertArabicToRoman(valueArabicToConvertToRoman){
         const mappingRomanArabic = this.mappingRomanArabic();
         let valueConvertedToRoman = "";
+
         for (let romanValueFromMapping in mappingRomanArabic){
+
             while(valueArabicToConvertToRoman >= mappingRomanArabic[romanValueFromMapping]){
                 valueConvertedToRoman += romanValueFromMapping;
                 valueArabicToConvertToRoman -= mappingRomanArabic[romanValueFromMapping];
@@ -66,10 +55,37 @@ class RomanNumeral {
         }
         return valueConvertedToRoman;
     }
+
+    convertRomanToArabic(valueRomanToConvertToArabic){
+        const mappingRomanArabic = this.mappingRomanArabic();
+        let valueConvertedToArabic = 0;
+
+        for(let i=0; i < valueRomanToConvertToArabic.length; i++ ){
+
+            const twoChar = valueRomanToConvertToArabic.substring(i, i + 2);
+            const oneChar = valueRomanToConvertToArabic.charAt(i);
+            if (i + 1 < valueRomanToConvertToArabic.length && mappingRomanArabic[twoChar]) {
+                valueConvertedToArabic += mappingRomanArabic[twoChar];
+                i++;
+            } else {
+                valueConvertedToArabic += mappingRomanArabic[oneChar];
+            }
+        }
+        return valueConvertedToArabic;
+    }
 }
 
 module.exports = { RomanNumeral };
 
 const converter = new RomanNumeral();
-console.log(converter.convertRomanToArabic("XII"))
-console.log(converter.convertArabicToRoman(8))
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question('Enter a value to convert (either Roman numeral or Arabic number) up to MMM/3000: ', (answer) => {
+    const result = converter.convertValue(answer);
+    console.log(`Converted value: ${result}`);
+    rl.close();
+});

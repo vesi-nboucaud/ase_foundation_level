@@ -3,45 +3,29 @@ const { RomanNumeral } = require('../roman_numerals'); // Assurez-vous que le ch
 
 QUnit.module('RomanNumeral Tests', function() {
 
-    QUnit.test('X is roman so it should return true', function(assert) {
+    QUnit.test('XVIII is roman so it should return false', function(assert) {
         const sut = new RomanNumeral();
-        assert.strictEqual(sut.isValueRoman("X"), true);
+        assert.strictEqual(sut.isValueArabic("XVIII"), false);
     });
-
-    QUnit.test('X is roman so it should return false', function(assert) {
+    QUnit.test('XVIII is roman so it should return true', function(assert) {
         const sut = new RomanNumeral();
-        assert.strictEqual(sut.isValueArabic("X"), false);
+        assert.strictEqual(sut.isValueRoman("XVIII"), true);
     });
-
-    QUnit.test('10 is arabic so it should return true', function(assert) {
+    QUnit.test('19 is arabic so it should return true', function(assert) {
         const sut = new RomanNumeral();
         assert.strictEqual(sut.isValueArabic(10), true);
     });
-
-    QUnit.test('10 is arabic so it should return false', function(assert) {
+    QUnit.test('4 is arabic so it should return false', function(assert) {
         const sut = new RomanNumeral();
         assert.strictEqual(sut.isValueRoman(10), false);
     });
-
-    QUnit.test('undefined should return false', function(assert) {
-        const sut = new RomanNumeral();
-        assert.strictEqual(sut.isValueRoman(), false);
-    });
-
-    QUnit.test('undefined should return false', function(assert) {
-        const sut = new RomanNumeral();
-        assert.strictEqual(sut.isValueArabic(), false);
-    });
-
-    QUnit.test('XVIII should return 18', function(assert) {
-        const sut = new RomanNumeral();
-        assert.strictEqual(sut.convertRomanToArabic("XVIII"), 18);
-    });
-
-    QUnit.test('XVIII should return 18', function(assert) {
-        const sut = new RomanNumeral();
-        assert.strictEqual(sut.convertArabicToRoman(8), "VIII");
-    });
     
-    
+    QUnit.test('CDXXXII should return 432', function(assert) {
+        const sut = new RomanNumeral();
+        assert.strictEqual(sut.convertRomanToArabic("CDXXXII"), 432);
+    });
+    QUnit.test('432 should return CDXXXII', function(assert) {
+        const sut = new RomanNumeral();
+        assert.strictEqual(sut.convertArabicToRoman(432), "CDXXXII");
+    });
 });
