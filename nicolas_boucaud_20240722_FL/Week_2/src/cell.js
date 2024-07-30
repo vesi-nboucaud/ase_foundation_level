@@ -2,17 +2,17 @@ const { test } = require("qunit");
 
 class Cell {
 
-    constructor(alive) {
-        this.alive = alive;
+    constructor(isAlive) {
+        this.isCellAlive = isAlive;
         this.neighbors = new Map();
     }
 
-    addNeighbor(id, neighborCell) {
-        this.neighbors.set(id, neighborCell);
+    countLivingNeighbors() {
+        return Array.from(this.neighbors.values()).filter(neighbor => neighbor.isCellAlive).length;
     }
 
-    countLivingNeighbors() {
-        return Array.from(this.neighbors.values()).filter(neighbor => neighbor.alive).length;
+    addASpecificNeighborToACell(cellId, neighborCell) {
+        this.neighbors.set(cellId, neighborCell);
     }
 }
 
