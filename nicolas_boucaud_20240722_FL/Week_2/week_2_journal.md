@@ -10,3 +10,7 @@ For this second version I focused on good naming as well as a better test covera
 ## [D3] 2024-07-31: Third Version of Game of life
 **Entry:**
 For this third version I focused on a better test coverage and a better naming. IOSP is also present with the constructor (integration.)
+
+## [D4] 2024-08-01: Fourth Version of Game of life
+**Entry:**
+For this this version I created a brand new class "GridManager" to handle cells history and tried to apply SRP as much as possible. I need to improve test coverage as many new cases to handle have emerged.

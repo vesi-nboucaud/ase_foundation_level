@@ -1,7 +1,30 @@
 const { test } = require("qunit");
 
-class Cell {
+class GridManager {
+    constructor() {
+        this.cells = new Map();
+    }
 
+    addCell(cellId, cell) {
+        this.cells.set(cellId, cell);
+    }
+
+    getCell(cellId) {
+        return this.cells.get(cellId);
+    }
+
+    updateCellStatus(cellId) {
+        const cell = this.getCell(cellId);
+        if (cell) {
+            cell.computeCellStatus();
+        }
+    }
+
+    updateAllCellsStatus() {
+        this.cells.forEach((cell, cellId) => this.updateCellStatus(cellId));
+    }
+}
+class Cell {
     constructor (isAlive){
         this.isCellAlive = isAlive;
         this.cellNeighbors = new Map();
@@ -16,54 +39,15 @@ class Cell {
     }
 
     computeCellStatus(){
-        let numberOfLivingCells = this.countLivingNeighborsOfCell();
-        
-        if(numberOfLivingCells < 2 || numberOfLivingCells > 3){
+        const numberOfLivingNeighbors = this.countLivingNeighborsOfCell();
+        if(numberOfLivingNeighbors < 2 || numberOfLivingNeighbors > 3){
             this.isCellAlive = false;
         }
-
-        if((numberOfLivingCells === 3)){
+        if((numberOfLivingNeighbors === 3)){
             this.isCellAlive = true;
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   /*  constructor(isAlive) {
-        this.isCellAlive = isAlive;
-        this.neighbors = new Map();
-    }
-
-    countLivingNeighbors() {
-        return Array.from(this.neighbors.values()).filter(neighbor => neighbor.isCellAlive).length;
-    }
-
-    addASpecificNeighborToACell(cellId, neighborCell) {
-        this.neighbors.set(cellId, neighborCell);
-    } */
 }
 
-module.exports = { Cell };
+module.exports = { Cell, GridManager };
