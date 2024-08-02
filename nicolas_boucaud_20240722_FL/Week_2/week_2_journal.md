@@ -14,3 +14,8 @@ For this third version I focused on a better test coverage and a better naming. 
 ## [D4] 2024-08-01: Fourth Version of Game of life
 **Entry:**
 For this this version I created a brand new class "GridManager" to handle cells history and tried to apply SRP as much as possible. I need to improve test coverage as many new cases to handle have emerged.
+
+## [D5] 2024-08-02: Fifth Version of Game of life
+**Entry:**
+For this this version I came back to an infinite space for the Game of life. By that I mean that there are no grid constraints for cells. It means that a given cell can have more than 8 neighbords for example. The information about cells neighbors are only holded by cells.
+I tried to optimize the code as muche as possible as well using a good test coverage and IOSP.

@@ -1,29 +1,5 @@
 const { test } = require("qunit");
 
-class GridManager {
-    constructor() {
-        this.cells = new Map();
-    }
-
-    addCell(cellId, cell) {
-        this.cells.set(cellId, cell);
-    }
-
-    getCell(cellId) {
-        return this.cells.get(cellId);
-    }
-
-    updateCellStatus(cellId) {
-        const cell = this.getCell(cellId);
-        if (cell) {
-            cell.computeCellStatus();
-        }
-    }
-
-    updateAllCellsStatus() {
-        this.cells.forEach((cell, cellId) => this.updateCellStatus(cellId));
-    }
-}
 class Cell {
     constructor (isAlive){
         this.isCellAlive = isAlive;
@@ -38,16 +14,35 @@ class Cell {
         this.cellNeighbors.set(neighborCellId, neighborCell);
     }
 
-    computeCellStatus(){
+    computeCurrentCellStatus(){
         const numberOfLivingNeighbors = this.countLivingNeighborsOfCell();
-        if(numberOfLivingNeighbors < 2 || numberOfLivingNeighbors > 3){
-            this.isCellAlive = false;
-        }
-        if((numberOfLivingNeighbors === 3)){
-            this.isCellAlive = true;
-        }
+        this.isCellAlive = numberOfLivingNeighbors === 3 || (this.isCellAlive && numberOfLivingNeighbors === 2);
     }
 
 }
+class SpaceManager {
+    constructor() {
+        this.cells = new Map();
+    }
 
-module.exports = { Cell, GridManager };
+    addCellToSpace(cellId, cell) {
+        this.cells.set(cellId, cell);
+    }
+
+    getCellFromSpace(cellId) {
+        return this.cells.get(cellId);
+    }
+
+    updateCellSCurrenttatus(cellId) {
+        const cell = this.getCellFromSpace(cellId);
+        if (cell) {
+            cell.computeCurrentCellStatus();
+        }
+    }
+
+    updateAllCellsCurrentStatusInSpace() {
+        this.cells.forEach((cell, cellId) => this.updateCellSCurrenttatus(cellId));
+    }
+}
+
+module.exports = { Cell, SpaceManager };
