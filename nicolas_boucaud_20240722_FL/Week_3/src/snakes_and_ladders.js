@@ -19,13 +19,26 @@ class SnakesLadders {
             "SnakeTo": ""
         },
         {
-            "SquareNumber": 16,
+            "SquareNumber": 4,
             "LadderTo": "",
             "SnakeTo": 6
+        },
+        {
+            "SquareNumber": 3,
+            "LadderTo": "",
+            "SnakeTo": ""
         }]
 
         this.players = new Map();
         this.currentPlayer = null;
+    }
+
+    play(){
+        const die1 = this.getRandomForOneDie();
+        const die2 = this.getRandomForOneDie();
+
+        const steps = die1 + die2;
+        return steps;
     }
 
     getRandomForOneDie(){
@@ -34,12 +47,21 @@ class SnakesLadders {
 
     addPlayer(playerName) {
         this.players.set(playerName, 1);
-        if (this.currentPlayer === null) {
+        if (!this.currentPlayer) {
             this.currentPlayer = playerName;
         }
     }
-
-
 }
 
-module.exports = { SnakesLadders };
+class Player {
+    constructor(name) {
+        this.name = name;
+        this.position = 1;
+    }
+
+    moveTo(position) {
+        this.position = position;
+    }
+}
+
+module.exports = { SnakesLadders, Player };
