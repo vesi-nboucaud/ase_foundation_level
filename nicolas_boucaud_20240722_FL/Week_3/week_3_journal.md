@@ -10,3 +10,7 @@ For this second version I implemented a way to add a new player to the board. Fo
 ## [D3] 2024-08-07: Third Version of Game of life
 **Entry:**
 For this third version I added a dedicated class for Players to be more compliant with SRP. We could have even one more class for the game (so Player, Board & Game). IOSP is also applied with a more modular code.
+
+## [D4] 2024-08-08: Fourth Version of Game of life
+**Entry:**
+For this Fourth version I focused on good test coverage as well as IOSP: the constructor for the class SnakesLadders is an integration function, the reste are operation functions.
