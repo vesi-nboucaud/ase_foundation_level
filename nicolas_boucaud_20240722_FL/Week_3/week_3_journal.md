@@ -15,6 +15,6 @@ For this third version I added a dedicated class for Players to be more complian
 **Entry:**
 For this Fourth version I focused on good test coverage as well as IOSP: the constructor for the class SnakesLadders is an integration function, the reste are operation functions.
 
-## [D5] 2024-08-08: Fourth Version of Game of life
+## [D5] 2024-08-09: Fourth Version of Game of life
 **Entry:**
 For this Fifth version I added a Readline to be able for both players to play in the console. I tried to have a good test coverage as well as using SRP (for example movePlayer consist in 3 other functions call). By adding a new Class (Game) and a constructor, I kept focusing on IOSP.
