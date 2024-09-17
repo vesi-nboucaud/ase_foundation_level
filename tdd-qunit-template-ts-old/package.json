@@ -1,0 +1,38 @@
+{
+  "name": "tdd-qunit-template-ts",
+  "version": "1.0.0",
+  "description": "1) Create package.json (without all the steps) ```console npm init -y ```",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "qunit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/qunit": "^2.19.10",
+    "qunit": "^2.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "acorn": "^8.12.1",
+    "acorn-walk": "^8.3.4",
+    "arg": "^4.1.3",
+    "commander": "^7.2.0",
+    "create-require": "^1.1.1",
+    "diff": "^4.0.2",
+    "globalyzer": "^0.1.0",
+    "globrex": "^0.1.2",
+    "make-error": "^1.3.6",
+    "node-watch": "^0.7.3",
+    "tiny-glob": "^0.2.9",
+    "undici-types": "^6.19.8",
+    "v8-compile-cache-lib": "^3.0.1",
+    "yn": "^3.1.1"
+  }
+}

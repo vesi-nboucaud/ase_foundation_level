@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                     // Version du JavaScript cible
+    "module": "commonjs",                // Type de module utilisé
+    "outDir": "./dist",                  // Dossier de sortie pour les fichiers compilés
+    "rootDir": "./",                     // Dossier racine des fichiers source
+    "strict": true,                      // Activer toutes les vérifications strictes
+    "esModuleInterop": true,             // Compatibilité avec les modules ES
+    "forceConsistentCasingInFileNames": true, // Respecter la casse dans les noms de fichiers
+    "skipLibCheck": true,                // Ignorer la vérification des fichiers de définition
+    "types": ["node", "qunit"],          // Inclure les types pour Node.js et QUnit
+    "moduleResolution": "node"           // Utiliser la résolution de modules de Node.js
+  },
+  "include": ["src/**/*", "test/**/*"],  // Inclure tous les fichiers .ts dans src et test
+  "exclude": ["node_modules", "dist"]    // Exclure node_modules et dist
+}
