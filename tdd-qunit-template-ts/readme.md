@@ -46,7 +46,7 @@ module.exports = {
 "outDir": "./dist",
 ```
 
-8) Modify package.json like this. It allows compiling before launching test + Indicate to perform the test on the compiled file in /dist folder
+8) Modify package.json like this. It allows compiling before launching test + Indicates to perform the test on the compiled file in /dist folder
 ```
 "scripts": {
     "build": "tsc",
