@@ -16,7 +16,7 @@ class Cell {
 
     computeCurrentCellStatus(){
         const numberOfLivingNeighbors = this.countLivingNeighborsOfCell();
-        this.isCellAlive = numberOfLivingNeighbors === 3 || (this.isCellAlive && numberOfLivingNeighbors === 2);
+        this.isCellAlive = (numberOfLivingNeighbors === 3) || (this.isCellAlive && numberOfLivingNeighbors === 2);
     }
 
 }

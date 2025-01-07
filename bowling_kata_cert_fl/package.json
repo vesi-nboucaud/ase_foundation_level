@@ -1,0 +1,22 @@
+{
+  "name": "bowling_kata_cert_fl",
+  "version": "1.0.0",
+  "description": "1) Create package.json (without all the steps) with default parameters ```console npm init -y ```",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && qunit 'dist/test/**/*.js'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/qunit": "^2.19.12",
+    "qunit": "^2.23.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
