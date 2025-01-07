@@ -12,20 +12,6 @@ class BowlingGame {
     roll(pins) {
         this.validatePins(pins);
         this.rolls[this.currentRoll++] = pins;
-        /*  this.validatePins(pins);
- 
-         if (this.isTenthFrame()) {
-             const rollsInTenthFrame = this.rolls.slice(18); // Get rolls from the 10th frame
-             if (rollsInTenthFrame.length >= 3) {
-                 throw new Error("No more rolls are allowed in the 10th frame.");
-             }
- 
-             this.rolls[this.currentRoll++] = pins;
-             console.log(`Added roll for the 10th frame: ${pins}, Current rolls: ${this.rolls}`);
-         } else {
-             this.rolls[this.currentRoll++] = pins;
-             console.log(`Added roll for frame ${Math.floor(this.currentRoll / 2) + 1}: ${pins}, Current rolls: ${this.rolls}`);
-         }*/
     }
     getRolls() {
         return this.rolls;
@@ -42,10 +28,16 @@ class BowlingGame {
             throw new Error(`Invalid number of pins: ${pins}. Must be between 0 and ${constants_1.MAX_PINS}.`);
         }
     }
+    validateFrameScore(pins) {
+        const frameIndex = Math.floor(this.currentRoll / 2);
+        const isFirstRoll = this.currentRoll % 2 === 0;
+        if (isFirstRoll) {
+            return;
+        }
+        const previousRoll = this.rolls[this.currentRoll - 1];
+        if (previousRoll + pins > constants_1.MAX_PINS) {
+            throw new Error(`Invalid frame score: ${previousRoll + pins}. The total pins in a frame cannot exceed ${constants_1.MAX_PINS}.`);
+        }
+    }
 }
 exports.BowlingGame = BowlingGame;
-const game = new BowlingGame();
-game.roll(10);
-game.roll(5);
-game.roll(4);
-console.log(game.launchCalculation());

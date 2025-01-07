@@ -9,8 +9,8 @@ const rl = readline.createInterface({
 
 const game = new BowlingGame();
 
-function promptRoll(frame: number, rollNumber: number): void {
-    rl.question(`Frame ${frame}, Roll ${rollNumber}: Enter the number of pins knocked down (0-${MAX_PINS}): `, (input) => {
+function promptRoll(frame: number, rollNumber: number, numberOfPinsLeftToKnockDown: number): void {
+    rl.question(`Frame ${frame}, Roll ${rollNumber}: Enter the number of pins knocked down (0-${MAX_PINS - numberOfPinsLeftToKnockDown}): `, (input) => {
         const pins = parseInt(input, 10);
 
         try {
@@ -27,7 +27,7 @@ function promptRoll(frame: number, rollNumber: number): void {
                     nextFrame(frame + 1);
                 } else if (rollNumber === 1) {
                     // First roll of the frame completed
-                    promptRoll(frame, rollNumber + 1);
+                    promptRoll(frame, rollNumber + 1, pins);
                 } else {
                     // Frame completed, move to the next
                     nextFrame(frame + 1);
@@ -36,52 +36,28 @@ function promptRoll(frame: number, rollNumber: number): void {
         } catch (error) {
             if (error instanceof Error) {
                 console.log(error.message);
-                promptRoll(frame, rollNumber); // Retry on invalid input
+                promptRoll(frame, rollNumber, 0); // Retry on invalid input
             }
         }
     });
 }
 
-function handleTenthFrameRollsOld(frame: number, rollNumber: number): void {
-    const rollsInTenthFrame = game.getRolls().slice(18); // Rolls for the 10th frame
-    const totalRolls = rollsInTenthFrame.length;
-
-    if (totalRolls < 2) {
-        // Ensure at least two rolls in the 10th frame
-        promptRoll(frame, totalRolls + 1);
-    } else if (
-        rollsInTenthFrame[0] === MAX_PINS || // First roll is a strike
-        rollsInTenthFrame[0] + rollsInTenthFrame[1] === MAX_PINS // Spare
-    ) {
-        // Allow a bonus roll if strike or spare occurs
-        if (totalRolls < 3) {
-            promptRoll(frame, totalRolls + 1);
-        } else {
-            endGame(); // End the game after 3 rolls in the 10th frame
-        }
-    } else {
-        // No bonus roll allowed, end the game
-        endGame();
-    }
-}
-
 let tenthFrameRolls: number[] = [];
 function handleTenthFrameRolls(rollNumber: number, pins: number): void {
     tenthFrameRolls.push(pins);
-    console.log(pins + " here " + tenthFrameRolls)
 
     if (rollNumber === 1) {
         if (pins === 10) {
             // Strike on first roll in 10th frame
-            promptRoll(10, rollNumber + 1);
+            promptRoll(10, rollNumber + 1, 0);
         } else {
             // First roll in 10th frame, not a strike
-            promptRoll(10, rollNumber + 1);
+            promptRoll(10, rollNumber + 1, pins);
         }
     } else if (rollNumber === 2) {
         if (tenthFrameRolls[0] === 10 || tenthFrameRolls[0] + pins === 10) {
             // Strike or spare in first two rolls of 10th frame
-            promptRoll(10, rollNumber + 1);
+            promptRoll(10, rollNumber + 1, 0);
         } else {
             // Open frame in 10th frame
             endGame();
@@ -94,11 +70,7 @@ function handleTenthFrameRolls(rollNumber: number, pins: number): void {
 
 
 function nextFrame(frame: number): void {
-   /*  if (frame > 10) {
-        endGame();
-    } else { */
-        promptRoll(frame, 1);
-    //}
+    promptRoll(frame, 1, 0);
 }
 
 function endGame(): void {
