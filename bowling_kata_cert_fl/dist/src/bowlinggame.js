@@ -10,8 +10,8 @@ class BowlingGame {
         this.scoreCalculator = new scorecalculator_1.ScoreCalculator();
     }
     roll(pins) {
-        this.validatePins(pins);
-        this.rolls[this.currentRoll++] = pins;
+        this.checkPinsRange(pins);
+        this.recordRoll(pins);
     }
     getRolls() {
         return this.rolls;
@@ -23,7 +23,10 @@ class BowlingGame {
     isTenthFrame() {
         return this.currentRoll >= 18;
     }
-    validatePins(pins) {
+    recordRoll(pins) {
+        this.rolls[this.currentRoll++] = pins;
+    }
+    checkPinsRange(pins) {
         if (pins < 0 || pins > constants_1.MAX_PINS) {
             throw new Error(`Invalid number of pins: ${pins}. Must be between 0 and ${constants_1.MAX_PINS}.`);
         }

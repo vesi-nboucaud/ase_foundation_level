@@ -4,6 +4,9 @@ exports.ScoreCalculator = void 0;
 const constants_1 = require("../src/constants");
 class ScoreCalculator {
     calculateScore(rolls) {
+        return this.aggregateFrameScores(rolls);
+    }
+    aggregateFrameScores(rolls) {
         let score = 0;
         let frameIndex = 0;
         for (let frame = 0; frame < constants_1.MAX_FRAMES; frame++) {
@@ -12,18 +15,24 @@ class ScoreCalculator {
             }
             if (this.isStrike(rolls, frameIndex)) {
                 score += this.calculateStrikeScore(rolls, frameIndex);
-                frameIndex += 1;
+                frameIndex = this.incrementFrameIndexForStrike(frameIndex);
             }
             else if (this.isSpare(rolls, frameIndex)) {
                 score += this.calculateSpareScore(rolls, frameIndex);
-                frameIndex += 2;
+                frameIndex = this.incrementFrameIndexForSpareOrOpenFrame(frameIndex);
             }
             else {
                 score += this.sumOfPinsInFrame(rolls, frameIndex);
-                frameIndex += 2;
+                frameIndex = this.incrementFrameIndexForSpareOrOpenFrame(frameIndex);
             }
         }
         return score;
+    }
+    incrementFrameIndexForSpareOrOpenFrame(frameIndex) {
+        return frameIndex += 2;
+    }
+    incrementFrameIndexForStrike(frameIndex) {
+        return frameIndex += 1;
     }
     isStrike(rolls, frameIndex) {
         var _a;

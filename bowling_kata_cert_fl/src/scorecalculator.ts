@@ -3,6 +3,10 @@ import { MAX_PINS, MAX_FRAMES } from '../src/constants';
 export class ScoreCalculator {
 
     calculateScore(rolls: number[]): number {
+        return this.aggregateFrameScores(rolls);
+    }
+    
+    private aggregateFrameScores(rolls: number[]): number {
         let score: number = 0;
         let frameIndex: number = 0;
 
@@ -12,17 +16,25 @@ export class ScoreCalculator {
             }
             if (this.isStrike(rolls, frameIndex)) {
                 score += this.calculateStrikeScore(rolls, frameIndex);
-                frameIndex += 1;
+                frameIndex = this.incrementFrameIndexForStrike(frameIndex);
             } else if (this.isSpare(rolls, frameIndex)) {
                 score += this.calculateSpareScore(rolls, frameIndex);
-                frameIndex += 2;
+                frameIndex = this.incrementFrameIndexForSpareOrOpenFrame(frameIndex);
             } else {
                 score += this.sumOfPinsInFrame(rolls, frameIndex);
-                frameIndex += 2;
+                frameIndex = this.incrementFrameIndexForSpareOrOpenFrame(frameIndex);
             }
         }
         
         return score;
+    }
+
+    private incrementFrameIndexForSpareOrOpenFrame(frameIndex: number) {
+        return frameIndex += 2;
+    }
+
+    private incrementFrameIndexForStrike(frameIndex: number) {
+        return frameIndex += 1;
     }
 
     private isStrike(rolls: number[], frameIndex: number): boolean {

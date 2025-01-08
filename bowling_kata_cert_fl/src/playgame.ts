@@ -43,6 +43,7 @@ function promptRoll(frame: number, rollNumber: number, numberOfPinsLeftToKnockDo
 }
 
 let tenthFrameRolls: number[] = [];
+
 function handleTenthFrameRolls(rollNumber: number, pins: number): void {
     tenthFrameRolls.push(pins);
 
@@ -67,7 +68,6 @@ function handleTenthFrameRolls(rollNumber: number, pins: number): void {
         endGame();
     }
 }
-
 
 function nextFrame(frame: number): void {
     promptRoll(frame, 1, 0);

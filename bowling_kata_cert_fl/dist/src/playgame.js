@@ -72,11 +72,7 @@ function handleTenthFrameRolls(rollNumber, pins) {
     }
 }
 function nextFrame(frame) {
-    /*  if (frame > 10) {
-         endGame();
-     } else { */
     promptRoll(frame, 1, 0);
-    //}
 }
 function endGame() {
     console.log(`Game over! Your final score is: ${game.launchCalculation()}`);
