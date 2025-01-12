@@ -23,20 +23,17 @@ function promptRoll(frame: number, rollNumber: number, numberOfPinsLeftToKnockDo
                 
             } else {
                 if (rollNumber === 1 && pins === MAX_PINS) {
-                    // Strike in a regular frame
-                    nextFrame(frame + 1);
+                    startNextFrame (frame + 1);
                 } else if (rollNumber === 1) {
-                    // First roll of the frame completed
                     promptRoll(frame, rollNumber + 1, pins);
                 } else {
-                    // Frame completed, move to the next
-                    nextFrame(frame + 1);
+                    startNextFrame (frame + 1);
                 }
             }
         } catch (error) {
             if (error instanceof Error) {
                 console.log(error.message);
-                promptRoll(frame, rollNumber, 0); // Retry on invalid input
+                promptRoll(frame, rollNumber, 0);
             }
         }
     });
@@ -49,27 +46,22 @@ function handleTenthFrameRolls(rollNumber: number, pins: number): void {
 
     if (rollNumber === 1) {
         if (pins === 10) {
-            // Strike on first roll in 10th frame
             promptRoll(10, rollNumber + 1, 0);
         } else {
-            // First roll in 10th frame, not a strike
             promptRoll(10, rollNumber + 1, pins);
         }
     } else if (rollNumber === 2) {
         if (tenthFrameRolls[0] === 10 || tenthFrameRolls[0] + pins === 10) {
-            // Strike or spare in first two rolls of 10th frame
             promptRoll(10, rollNumber + 1, 0);
         } else {
-            // Open frame in 10th frame
             endGame();
         }
     } else {
-        // Third roll in 10th frame
         endGame();
     }
 }
 
-function nextFrame(frame: number): void {
+function startNextFrame (frame: number): void {
     promptRoll(frame, 1, 0);
 }
 
@@ -79,4 +71,4 @@ function endGame(): void {
 }
 
 console.log("Welcome to Bowling Game!");
-nextFrame(1);
+startNextFrame (1);
