@@ -44,13 +44,14 @@ module.exports = {
 ```
 "rootDir": "./",
 "outDir": "./dist",
+"verbatimModuleSyntax": false
 ```
 
 8) Modify package.json like this. It allows compiling before launching test + Indicates to perform the test on the compiled file in /dist folder
 ```
 "scripts": {
     "build": "tsc",
-    "test": "npm run build && qunit 'dist/test/**/*.js'"
+    "test": "npm run build && qunit dist/test/**/*.js"
 }
 ```
 
